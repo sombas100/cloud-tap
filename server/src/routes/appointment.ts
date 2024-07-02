@@ -7,14 +7,15 @@ import { createAppointment,
     getNotifications,
     markAsNotified,
  } from '../controller/appointmentController';
+ import { adminMiddleware } from '../middleware/adminMiddleware';
 
  const router = express.Router();
 
- router.post('/', createAppointment);
- router.get('/', getAllAppointments);
- router.get('/:id', getAppointmentById);
- router.put('/:id', updateAppointment);
- router.delete('/:id', deleteAppointment);
+ router.post('/',adminMiddleware, createAppointment);
+ router.get('/', adminMiddleware, getAllAppointments);
+ router.get('/:id', adminMiddleware,  getAppointmentById);
+ router.put('/:id', adminMiddleware, updateAppointment);
+ router.delete('/:id', adminMiddleware, deleteAppointment);
  router.get('/notifications', getNotifications);
  router.put('/notifications/:id', markAsNotified);
 

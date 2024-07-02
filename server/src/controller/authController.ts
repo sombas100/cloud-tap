@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken';
-import User, { IUser} from "../model/user";
+import User, { IUser } from "../model/user";
 
 export const generateToken = (user: IUser) => {
     const token = jwt.sign(
@@ -21,8 +21,8 @@ export const register = async (req: Request, res: Response) => {
             return res.status(400).json({ message: 'User already exists' })
         }
         
-        const salt = 10;
-        const hashedPassword = bcrypt.hash(password, salt);
+        const saltRounds = 10;
+        const hashedPassword = await bcrypt.hash(password, saltRounds);
 
         user = new User({
             username,
@@ -46,7 +46,7 @@ export const login = async (req: Request, res: Response) => {
             return res.status(404).json({ message: 'User not found' });
         }
 
-        const isMatch = bcrypt.compare(password, user.password);
+        const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
             return res.status(400).json({ message: 'Invalid credentials' });
         }
