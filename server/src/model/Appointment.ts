@@ -9,7 +9,7 @@ interface IAppointment extends Document {
     notified: string;
 }
 
-export const AppintmentSchema: Schema = new Schema({
+export const AppointmentSchema: Schema = new Schema({
     name: { type: String, required: true },
     email: { type: String, required: true },
     date: { type: Date, required: true },
@@ -17,5 +17,5 @@ export const AppintmentSchema: Schema = new Schema({
     notified: { type: String, required: true }
 })
 
-export const Appointment = mongoose.model<IAppointment>('Appointments', AppintmentSchema);
+export const Appointment = mongoose.model<IAppointment>('Appointments', AppointmentSchema);
 export default Appointment;
